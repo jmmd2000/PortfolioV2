@@ -3,5 +3,9 @@
 @tailwind utilities;
 
 * {
-  font-family: "roboto condensed", sans-serif;
+  font-family: "Urbanist", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
 }

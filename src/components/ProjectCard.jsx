@@ -7,7 +7,7 @@ const ProjectCard = (props) => {
     <div
       className={`flex ${
         props.vertical ? "flex-row" : "flex-col"
-      } items-stretch gap-2 min-w-[450px] max-w-[450px] h-[500px] p-4 bg-zinc-300 rounded-3xl bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10`}
+      } items-stretch gap-2 min-w-full max-w-full md:min-w-[450px] md:max-w-[450px] h-[500px] p-4 bg-zinc-300 rounded-3xl bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10`}
     >
       {props.vertical ? (
         <img
@@ -29,7 +29,7 @@ const ProjectCard = (props) => {
           </h1>
           <p className="text-zinc-200">{props.description}</p>
         </div>
-        <div className="flex gap-2 justify-start w-full mt-auto">
+        <div className="flex gap-1 md:gap-2 justify-start w-full mt-auto">
           {props.children}
           <a
             href={props.link}

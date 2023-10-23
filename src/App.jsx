@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProjectCard from "./components/ProjectCard";
 import TechIcon from "./components/TechIcon";
 
@@ -32,25 +32,38 @@ import {
   SiDart,
 } from "react-icons/si";
 import { TbBrandNextjs } from "react-icons/tb";
+import { HiMenu } from "react-icons/hi";
 import JobCard from "./components/JobCard";
 
 function App() {
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    // This is the code for the mobile navbar. It's a bit hacky, but it works.
+
+    if (window.innerWidth <= 768) {
+      setMobile(true);
+    } else {
+      setMobile(false);
+    }
+  }, []);
   return (
     <>
-      <NavBar />
+      <NavBar mobile={mobile} />
       <PortfolioSection svg="wavy">
-        <div className="flex flex-col md:flex-row gap-16 justify-center align-middle h-full items-center">
+        <div className="flex flex-col md:flex-row gap-8 md:gap-16 justify-center align-middle h-full items-center">
           <img
             src="/src/assets/me.webp"
             alt="Image of me."
-            className="rounded-full w-64 h-64 object-cover object-center border-4 border-purple-600 drop-shadow-[0_3px_0px_#3B0764]"
+            className="rounded-full w-48 md:w-64 aspect-square object-cover object-center border-4 border-purple-600 drop-shadow-[0_3px_0px_#3B0764]"
           />
-          <div className="flex flex-col max-w-[50ch]">
-            <h2 className="text-2xl font-medium text-zinc-200">Hey there!</h2>
-            <h1 className="text-5xl text-[#9333EA] font-extrabold drop-shadow-[0_3px_0px_#3B0764] tracking-wider mb-4">
+          <div className="flex flex-col max-w-[80%] md:max-w-[50ch]">
+            <h2 className="text-xl md:text-2xl font-medium text-zinc-200">
+              Hey there!
+            </h2>
+            <h1 className="text-4xl md:text-5xl text-[#9333EA] font-extrabold drop-shadow-[0_3px_0px_#3B0764] tracking-wider mb-4">
               I&rsquo;m James,
             </h1>
-            <h2 className="text-2xl font-medium text-zinc-200 tracking-wide">
+            <h2 className="text-xl md:text-2xl font-medium text-zinc-200 tracking-wide">
               a passionate frontend developer based in Dublin, Ireland.
             </h2>
           </div>
@@ -61,8 +74,8 @@ function App() {
         title="The personal stuff."
         subtitle="about me"
       >
-        <div className="max-w-[80%] p-6 mt-8 flex flex-col gap-8 font-light">
-          <p className="text-zinc-200 text-2xl">
+        <div className="w-full md:max-w-[80%] p-6 mt-8 flex flex-col gap-8 font-light">
+          <p className="text-zinc-200 text-base md:text-2xl">
             I have loved web development since my dad brought me to CoderDojo as
             a kid. I was instantly hooked and knew it was what I wanted to do. I
             studied Computer Systems and Networks in Dunboyne College, and moved
@@ -70,14 +83,14 @@ function App() {
             University where I recently graduated with a 2.1.
           </p>
 
-          <p className="text-zinc-200 text-2xl">
+          <p className="text-zinc-200 text-base md:text-2xl">
             I spend a lot of time listening to music, sometimes I write small
             reviews. I enjoy movies when they&rsquo;re good. If I&rsquo;m not
             programming, I&rsquo;m probably playing video-games or spending time
             with my partner.
           </p>
 
-          <p className="text-zinc-200 text-2xl">
+          <p className="text-zinc-200 text-base md:text-2xl">
             I have a weird hobby where I try to recreate old forms and documents
             with HTML and CSS. It&apos;s great practice, and can be found on my
             CodePen.
@@ -89,93 +102,93 @@ function App() {
         title="The knowledge stuff."
         subtitle="skills"
       >
-        <div className="p-6 mt-8 flex flex-col gap-4">
-          <p className="text-zinc-200 text-2xl">
+        <div className="p-2 md:p-6 mt-8 flex flex-col gap-4">
+          <p className="text-zinc-200 text-base md:text-2xl mb-3 md:mb-8">
             The tech I currently use professionally includes:
           </p>
-          <div className="flex flex-row justify-evenly gap-4 mb-16">
+          <div className="grid grid-cols-3 place-items-center md:flex md:flex-row md:justify-evenly gap-4 md:gap-4 mb-12 md:mb-16 ">
             <TechIcon
               icon={BiLogoKubernetes}
               title="Kubernetes"
               duration={1.16}
-              size={85}
+              size={mobile ? 50 : 85}
             />
             <TechIcon
               icon={SiHelm}
               title="Helm"
               duration={1.33}
-              size={85}
+              size={mobile ? 50 : 85}
             />
             <TechIcon
               icon={SiLinux}
               title="Linux"
               duration={1.5}
-              size={85}
+              size={mobile ? 50 : 85}
             />
             <TechIcon
               icon={BiLogoPostgresql}
               title="PostgreSQL"
               duration={1.66}
-              size={85}
+              size={mobile ? 50 : 85}
             />
             <TechIcon
               icon={BiLogoPython}
               title="Python"
               duration={1.83}
-              size={85}
+              size={mobile ? 50 : 85}
             />
             <TechIcon
               icon={BiLogoJava}
               title="Java"
               duration={2}
-              size={85}
+              size={mobile ? 50 : 85}
             />
           </div>
-          <p className="text-zinc-200 text-2xl">
+          <p className="text-zinc-200 text-base md:text-2xl mb-3 md:mb-8">
             The tech I use in personal projects includes:
           </p>
-          <div className="flex flex-row justify-evenly gap-4">
+          <div className="grid grid-cols-3 place-items-center md:flex md:flex-row md:justify-evenly gap-4 md:gap-4">
             <TechIcon
               icon={BiLogoHtml5}
               title="HTML"
               duration={1.14}
-              size={85}
+              size={mobile ? 50 : 85}
             />
             <TechIcon
               icon={BiLogoCss3}
               title="CSS"
               duration={1.28}
-              size={85}
+              size={mobile ? 50 : 85}
             />
             <TechIcon
               icon={BiLogoJavascript}
               title="Javascript"
               duration={1.42}
-              size={85}
+              size={mobile ? 50 : 85}
             />
             <TechIcon
               icon={BiLogoTypescript}
               title="Typescript"
               duration={1.56}
-              size={85}
+              size={mobile ? 50 : 85}
             />
             <TechIcon
               icon={BiLogoReact}
               title="React"
               duration={1.7}
-              size={85}
+              size={mobile ? 50 : 85}
             />
             <TechIcon
               icon={BiLogoTailwindCss}
               title="TailwindCSS"
               duration={1.84}
-              size={85}
+              size={mobile ? 50 : 85}
             />
             <TechIcon
               icon={TbBrandNextjs}
               title="NextJS"
               duration={2}
-              size={85}
+              size={mobile ? 50 : 85}
             />
           </div>
         </div>
@@ -185,7 +198,7 @@ function App() {
         title="My stuff."
         subtitle="projects"
       >
-        <p className="text-zinc-200 text-2xl mb-8">
+        <p className="text-zinc-200 text-base md:text-2xl mb-8">
           All my projects can be found on my Github, and some other things on my
           CodePen.
         </p>
@@ -329,7 +342,7 @@ function App() {
         title="The professional stuff."
         subtitle="experience"
       >
-        <div className="flex gap-8 overflow-hidden">
+        <div className="flex flex-col md:flex-row justify-start mt-8 gap-4 md:gap-8 overflow-hidden">
           <JobCard
             title="Software Engineer"
             imgSrc="/src/assets/ericsson.png"
@@ -458,7 +471,7 @@ const PortfolioSection = (props) => {
 
   return (
     <div
-      className={`bg-zinc-900 text-white max-w-full h-screen max-h-screen p-28 overflow-hidden bg-${props.svg}`}
+      className={`bg-zinc-900 text-white max-w-full h-[calc(100dvh)] md:h-screen max-h-screen p-3 md:p-28 overflow-hidden bg-${props.svg}`}
       id={props.subtitle === "about me" ? "about-me" : props.subtitle}
     >
       {props.title && props.subtitle && (
@@ -468,16 +481,16 @@ const PortfolioSection = (props) => {
           animate={inView ? "visible" : "hidden"}
           variants={animationVariants}
           transition={{ duration: 1 }}
-          className="mb-8"
+          className="mb-2 md:mb-8"
         >
           <motion.h2
-            className="text-xl font-bold text-zinc-200 uppercase"
+            className="text-lg md:text-xl font-bold text-zinc-200 uppercase"
             whileHover={{ y: -10 }}
             transition={{ duration: 0.3 }}
           >
             {props.subtitle}
           </motion.h2>
-          <h1 className="text-5xl text-[#9333EA] font-bold drop-shadow-[0_3px_0px_#3B0764] ">
+          <h1 className="text-3xl md:text-5xl text-[#9333EA] font-bold drop-shadow-[0_3px_0px_#3B0764] ">
             {props.title}
           </h1>
         </motion.div>
@@ -495,8 +508,14 @@ PortfolioSection.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const NavBar = () => {
+const NavBar = (props) => {
   const controls = useAnimation();
+  const [open, setOpen] = useState(false);
+
+  const variants = {
+    collapsed: { height: 0 },
+    expanded: { height: "auto" },
+  };
 
   useEffect(() => {
     let lastScrollPosition = window.scrollY;
@@ -507,9 +526,11 @@ const NavBar = () => {
       if (currentScrollPosition - lastScrollPosition > 0) {
         // Scrolling down, hide the navbar
         controls.start({ y: -100 });
+        setOpen(false);
       } else {
         // Scrolling up and hovering, show the navbar
         controls.start({ y: 0 });
+        setOpen(false);
       }
       lastScrollPosition = currentScrollPosition;
     };
@@ -534,43 +555,147 @@ const NavBar = () => {
   }, [controls]);
 
   return (
-    <motion.nav
-      className="flex flex-row fixed top-0 h-16 w-full p-0 m-0 bg-slate-800 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 z-10
+    <>
+      {props.mobile ? (
+        <motion.nav
+          className="flex flex-row fixed top-0 w-full p-0 m-0 bg-slate-800 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 z-10
     "
-      initial={{ y: 0 }}
-      animate={controls}
-      transition={{ duration: 0.3 }}
-    >
-      <a
-        href="#about-me"
-        className="text-xl font-semibold uppercase p-4 text-[#9333EA] drop-shadow-[0_3px_0px_#3B0764] hover:drop-shadow-none hover:text-white transition duration-200"
-      >
-        About
-      </a>
-      <a
-        href="#skills"
-        className="text-xl font-semibold uppercase p-4 text-[#9333EA] drop-shadow-[0_3px_0px_#3B0764] hover:drop-shadow-none hover:text-white transition duration-200"
-      >
-        Skills
-      </a>
-      <a
-        href="#projects"
-        className="text-xl font-semibold uppercase p-4 text-[#9333EA] drop-shadow-[0_3px_0px_#3B0764] hover:drop-shadow-none hover:text-white transition duration-200"
-      >
-        Projects
-      </a>
-      <a
-        href="#experience"
-        className="text-xl font-semibold uppercase p-4 text-[#9333EA] drop-shadow-[0_3px_0px_#3B0764] hover:drop-shadow-none hover:text-white transition duration-200"
-      >
-        Experience
-      </a>
-      <a
-        href="#contact"
-        className="text-xl font-semibold uppercase p-4 text-[#9333EA] drop-shadow-[0_3px_0px_#3B0764] hover:drop-shadow-none hover:text-white transition duration-200"
-      >
-        Contact
-      </a>
-    </motion.nav>
+          initial={{ y: 0 }}
+          animate={controls}
+          transition={{ duration: 0.3 }}
+        >
+          <HiMenu
+            size={32}
+            className="m-3 text-purple-600"
+            onClick={() => setOpen(!open)}
+          />
+
+          {open && (
+            <motion.div
+              className="flex flex-col gap-8 m-auto my-8"
+              initial="collapsed"
+              animate={open ? "expanded" : "collapsed"}
+              variants={variants}
+              transition={{ duration: 0.3 }}
+            >
+              <motion.span
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                }}
+                initial={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Navlink
+                  href="#about-me"
+                  title="About"
+                />
+              </motion.span>
+              <motion.span
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                }}
+                initial={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.4 }}
+              >
+                <Navlink
+                  href="#skills"
+                  title="Skills"
+                />
+              </motion.span>
+              <motion.span
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                }}
+                initial={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.6 }}
+              >
+                <Navlink
+                  href="#projects"
+                  title="Projects"
+                />
+              </motion.span>
+              <motion.span
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                }}
+                initial={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.8 }}
+              >
+                <Navlink
+                  href="#experience"
+                  title="Experience"
+                />
+              </motion.span>
+              <motion.span
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                }}
+                initial={{ opacity: 0, x: 20 }}
+                transition={{ duration: 1 }}
+              >
+                <Navlink
+                  href="#contact"
+                  title="Contact"
+                />
+              </motion.span>
+            </motion.div>
+          )}
+        </motion.nav>
+      ) : (
+        <motion.nav
+          className="flex flex-row gap-4 fixed top-0 h-14 items-center w-full p-0 m-0 bg-slate-800 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 z-10
+      "
+          initial={{ y: 0 }}
+          animate={controls}
+          transition={{ duration: 0.3 }}
+        >
+          <Navlink
+            href="#about-me"
+            title="About"
+          />
+          <Navlink
+            href="#skills"
+            title="Skills"
+          />
+          <Navlink
+            href="#projects"
+            title="Projects"
+          />
+          <Navlink
+            href="#experience"
+            title="Experience"
+          />
+          <Navlink
+            href="#contact"
+            title="Contact"
+          />
+        </motion.nav>
+      )}
+    </>
   );
+};
+
+NavBar.propTypes = {
+  mobile: PropTypes.bool,
+};
+
+const Navlink = (props) => {
+  return (
+    <a
+      href={props.href}
+      className="text-xl font-semibold uppercase p-2 text-[#9333EA] drop-shadow-[0_3px_0px_#3B0764] hover:drop-shadow-none hover:text-white transition duration-200"
+    >
+      {props.title}
+    </a>
+  );
+};
+
+Navlink.propTypes = {
+  href: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };

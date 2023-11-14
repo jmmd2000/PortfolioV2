@@ -38,8 +38,6 @@ import JobCard from "./components/JobCard";
 function App() {
   const [mobile, setMobile] = useState(false);
   useEffect(() => {
-    // This is the code for the mobile navbar. It's a bit hacky, but it works.
-
     if (window.innerWidth <= 768) {
       setMobile(true);
     } else {
@@ -49,10 +47,13 @@ function App() {
   return (
     <>
       <NavBar mobile={mobile} />
-      <PortfolioSection svg="wavy">
+      <PortfolioSection
+        svg="wavy"
+        hero
+      >
         <div className="flex flex-col md:flex-row gap-8 md:gap-16 justify-center align-middle h-full items-center">
           <img
-            src="/src/assets/me.webp"
+            src="src/assets/me.webp"
             alt="Image of me."
             className="rounded-full w-48 md:w-64 aspect-square object-cover object-center border-4 border-purple-600 drop-shadow-[0_3px_0px_#3B0764]"
           />
@@ -205,9 +206,9 @@ function App() {
         <div className="flex gap-8 overflow-x-scroll pb-8">
           <ProjectCard
             title="JamesReviewsMusic v2"
-            description="This site allows me to review my favourite albums and track the ratings for each song, album and artist."
-            imgSrc="/src/assets/reviews.png"
-            link="http://jamesreviewsmusic.online/"
+            description="This site allows me to review my favourite albums and track the ratings for each song, album and artist. A full, ground-up rewrite of the original."
+            imgSrc="src/assets/reviews-new.png"
+            link="http://jamesreviewsmusic.com/"
           >
             <TechIcon
               icon={BiLogoTypescript}
@@ -249,7 +250,7 @@ function App() {
           <ProjectCard
             title="Vintage Recreations"
             description="My CodePen hosts a collection of recreations of vintage documents. Anything from bingo cards to time sheets!"
-            imgSrc="/src/assets/docs.png"
+            imgSrc="src/assets/docs.png"
             link="https://codepen.io/jmmd2000"
           >
             <TechIcon
@@ -268,8 +269,8 @@ function App() {
           <ProjectCard
             title="RateFlix"
             description="This app was my final project in Maynooth. It allows users to sign up, search for movies, add them to their watchlist, and give them a rating."
-            imgSrc="/src/assets/movies.png"
-            link="https://codepen.io/jmmd2000"
+            imgSrc="src/assets/movies.png"
+            link="https://github.com/jmmd2000/MovieApp"
             vertical
           >
             <TechIcon
@@ -294,7 +295,7 @@ function App() {
           <ProjectCard
             title="Sorting Visualiser"
             description="This allows users to modify an array of bars and sort with different sorting algorithms. Can also modify the size of the array and speed of sorting."
-            imgSrc="/src/assets/sort.png"
+            imgSrc="src/assets/sort.png"
             link="https://jamesmddoyle.com/project/sorting-visualiser/"
           >
             <TechIcon
@@ -313,8 +314,8 @@ function App() {
           <ProjectCard
             title="JamesReviewsMusic v1"
             description="This is the first iteration of the review site. Built with React and Firebase, it was a great learning experience."
-            imgSrc="/src/assets/reviews.png"
-            link="https://github.com/jmmd2000/AlbumReviews"
+            imgSrc="src/assets/reviews.png"
+            link="http://jamesreviewsmusic.online/"
           >
             <TechIcon
               icon={BiLogoReact}
@@ -342,10 +343,10 @@ function App() {
         title="The professional stuff."
         subtitle="experience"
       >
-        <div className="flex flex-col md:flex-row justify-start mt-8 gap-4 md:gap-8 overflow-hidden">
+        <div className="flex md:flex-row justify-start mt-8 pb-8 gap-4 md:gap-8 overflow-x-scroll md:overflow-hidden">
           <JobCard
             title="Software Engineer"
-            imgSrc="/src/assets/ericsson.png"
+            imgSrc="src/assets/ericsson.png"
             company="Ericsson"
             date="July 2023 - Present"
             description="This position involves management of a Kubernetes clusters containing PostgreSQL databases via Helm charts."
@@ -389,7 +390,7 @@ function App() {
           </JobCard>
           <JobCard
             title="Frontend Intern"
-            imgSrc="/src/assets/fusio.png"
+            imgSrc="src/assets/fusio.png"
             company="Fusio"
             date="Jan 2022 - July 2022"
             description="This internship was front-end based and used HTML, CSS, JavaScript and WordPress. Each day I could be doing any number of things. I could be designing a UI element for a webpage or taking content from a client, formatting it and adding it to their site. I could also be testing pages and code snippets."
@@ -471,7 +472,9 @@ const PortfolioSection = (props) => {
 
   return (
     <div
-      className={`bg-zinc-900 text-white max-w-full h-[calc(100dvh)] md:h-screen max-h-screen p-3 md:p-28 overflow-hidden bg-${props.svg}`}
+      className={`bg-zinc-900 text-white max-w-full ${
+        props.hero ? "h-screen" : "min-h-screen"
+      } p-8 md:p-16 lg:p-28 bg-${props.svg}`}
       id={props.subtitle === "about me" ? "about-me" : props.subtitle}
     >
       {props.title && props.subtitle && (
@@ -505,6 +508,7 @@ PortfolioSection.propTypes = {
   svg: PropTypes.string.isRequired,
   title: PropTypes.string,
   subtitle: PropTypes.string,
+  hero: PropTypes.bool,
   children: PropTypes.node.isRequired,
 };
 
@@ -558,7 +562,7 @@ const NavBar = (props) => {
     <>
       {props.mobile ? (
         <motion.nav
-          className="flex flex-row fixed top-0 w-full p-0 m-0 bg-slate-800 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 z-10
+          className="flex flex-row fixed top-0 w-full p-0 m-0 bg-slate-800 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 z-10
     "
           initial={{ y: 0 }}
           animate={controls}
@@ -648,7 +652,7 @@ const NavBar = (props) => {
         </motion.nav>
       ) : (
         <motion.nav
-          className="flex flex-row gap-4 fixed top-0 h-14 items-center w-full p-0 m-0 bg-slate-800 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 z-10
+          className="flex flex-row gap-4 fixed top-0 h-14 items-center w-full p-0 pl-6 m-0 bg-slate-800 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 z-10
       "
           initial={{ y: 0 }}
           animate={controls}
